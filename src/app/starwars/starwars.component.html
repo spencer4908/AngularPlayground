@@ -1,0 +1,19 @@
+<ul>
+  <li *ngFor="let person of getPeople()">
+    <a style="cursor: pointer" (click)="person.clicked == false ? person.clicked = true : person.clicked = false">{{ person.name }}</a>
+    <ul *ngIf="person.clicked == true">
+      <li>Birth Year: {{ person.birth_year }}</li>
+      <li>Hair Color: {{ person.hair_color }}</li>
+      <li>Eye Color: {{ person.eye_color }}</li>
+      <li>Gender: {{ person.gender }}</li>
+      <li>Height: {{ person.height }}</li>
+      <li>Homeworld: {{ person.homeworld }}</li>
+      <li>Films
+        <ul *ngIf="person.films" >
+          <li *ngFor="let film of person.films"> <a [href]="film">{{ film }}</a> </li>
+        </ul>
+      </li>
+      <li><a [href]="person.url">See More</a></li>
+    </ul>
+  </li>
+</ul>
