@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StarwarsService } from './starwars.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Person } from './models/person.model';
 import { Router } from '@angular/router';
 
@@ -12,11 +12,10 @@ import { Router } from '@angular/router';
 })
 export class StarwarsComponent implements OnInit {
   private people: Person[] = [];
-  private people$: Observable<any>;
+  private people$: Subscription;
 
   constructor(private starwarsService: StarwarsService) {
-    this.people$ = this.starwarsService.getPeople();
-    this.starwarsService.getPeople().subscribe((results: any) => this.people = results.results);
+    this.people$ = this.starwarsService.getPeople().subscribe((results: any) => this.people = results.results);
   }
 
   getPeople(){
@@ -24,6 +23,10 @@ export class StarwarsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  OnDestroy() {
+    this.people$.unsubscribe();
   }
 
 }
